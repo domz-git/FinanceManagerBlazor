@@ -1,6 +1,10 @@
+using FinanceManager;
 using FinanceManager.Data;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using System.Net.Http;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +12,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
+builder.Services.AddEarningsRepository();
+builder.Services.AddHttpClient();
+
+builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
 var app = builder.Build();
 
